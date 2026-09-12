@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Simulation</title>
+</head>
+<body>
+    <script>
+        user_data = {
+            name : "Ram",
+            pin : 1234,
+            balance : 1000
+        };
+        function balance(){
+            alert("The balance of "+user_data.name+" is "+ user_data.balance);
+        }
+        function deposit(){
+            deposit = Number(prompt("Enter the amount you want to diposit"));
+            user_data.balance+=deposit;
+            alert("The balance after deposit is "+user_data.balance);
+        }
+        function withdraw(){
+            withdraw = Number(prompt("Enter the amount you want to withdraw"));
+            alert("Congratulations amount successfully withdrawn");
+            user_data.balance-=withdraw;
+            alert("The balance after withdrawn is " + user_data.balance);
+        }
+        pin = Number(prompt("Enter your pin: "));
+        if (pin === user_data.pin){
+        user_input = Number(prompt("Enter 1. for balance check , 2. for diposit, 3.for witdraw"));
+        if(user_input ===1){
+            balance();
+        }
+        else if(user_input ===2){
+            deposit();
+        }
+        else if(user_input === 3){
+            withdraw();
+        }
+        else{
+            alert("Invalid");
+        }}
+        else{
+            alert("Invalid pin Try again");
+        }
+    </script>
+</body>
+</html>
