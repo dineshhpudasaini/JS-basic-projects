@@ -66,6 +66,34 @@
             padding-left:30px;
             padding-top:15px;
         }
+        #submit{
+            border : 2px solid black;
+            display:flex;
+            height: 40px;
+            width:60px;
+            justify-content:center;
+            align-items:center;
+            border-radius:5px;
+            background-color:white;
+            font-size:40px;
+            margin-left:440px;
+            margin-top:-80px;
+            cursor:pointer;
+        }
+        #clear{
+            border : 2px solid black;
+            display:flex;
+            height: 60px;
+            width:100px;
+            justify-content:center;
+            align-items:center;
+            border-radius:5px;
+            background-color:white;
+            font-size:40px;
+            margin:60px;
+            margin-left:240px;
+            cursor:pointer;
+        }
     </style>
 </head>
 <body>
@@ -87,10 +115,66 @@
             <button>-</button>
             <button>*</button>
             <button>/</button>
-            <button>=</button>
+            <div id = "submit">=</div>
                     </div>
-           <div id="clear"> <button id = "clear">Clear</button></div>
+           <div id="clear">Clear</div>
     </div>
+    <script>
+        let input = document.querySelector(".input");
+        let values = document.querySelector(".values");
+        let buttons = document.querySelectorAll("button");
+        let clear = document.getElementsById("clear");
+        let operator= "";
+        currentvalue = "";
+        input.innerHTML="Hi";
+        buttons.forEach(button =>{
+        button.addEventListener("click",()=>{
+            input.innerHTML =currentvalue + button.innerHTML ;
+            currentvalue=currentvalue+button.innerHTML;
+        })})
+        function sum(a,b){
+            return a+b;
+        }
+        function sub(a,b){
+            return a-b;
+        }
+        function div(a,b){
+            return a/b;
+        }
+        function multiply(a,b){
+            return a*b;
+        }
+let submit = document.getElementById("submit");
+submit.addEventListener("click",()=>{
+    let addvalue=currentvalue.split("+");
+    let subvalue=currentvalue.split("-");
+    let multiplyvalue=currentvalue.split("*");
+    let divvalue=currentvalue.split("/")
+    if (currentvalue ===addvalue[0]+"+"+addvalue[1]){
+    let firstvalue = addvalue[0];
+    let lastvalue = addvalue[1];
+    input.innerHTML = sum(Number(firstvalue),Number(lastvalue));}
+    else if (currentvalue === subvalue[0]+"-"+subvalue[1]){
+    let firstvalue = subvalue[0];
+    let lastvalue = subvalue[1];
+    input.innerHTML = sub(Number(firstvalue),Number(lastvalue));}
+    else if (currentvalue ===multiplyvalue[0]+"*"+multiplyvalue[1]){
+    let firstvalue = multiplyvalue[0];
+    let lastvalue = multiplyvalue[1];
+    input.innerHTML = multiply(Number(firstvalue),Number(lastvalue));}
+    else if (currentvalue ===divvalue[0]+"/"+divvalue[1]){
+    let firstvalue = divvalue[0];
+    let lastvalue = Number(divvalue[1]);
+       if(lastvalue === 0){
+          alert("error");
+       }else{
+           input.innerHTML = div(Number(firstvalue),Number(lastvalue));}}
+})
+clear.addEventListener("click",()=>{
+input.innerHTML="";
+currentvalue="";
+})
+    </script>
 </body>
 
 </html>
