@@ -11,6 +11,11 @@
             background-color: black;
             color: #fff;
         }
+        body{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
        h3{
         display: flex;
         justify-content: center;
@@ -42,18 +47,88 @@
         font-family: 'Courier New', Courier, monospace;
         background-color: brown;
        }
+       .Subject{
+        display:none;
+       }
+       .marks{
+        display:none;
+       }
     </style>
 </head>
 <body>
     <div class="form">
     <h3>Marks Calculator</h3>
-    <input id="Subject" type="text" placeholder="Enter Your subject here: ">
-    <input id ="marks" type="text" placeholder ="Enter Your marks here: ">
-    <button>Next Subject</button>
-    <button>Submit</button>
+    <input class = "totalsub" type="Number" placeholder="Enter the total subjects: ">
+    <input class="Subject" type="text" placeholder="Enter Your subject here: ">
+    <input class="marks" type="text" placeholder ="Enter Your marks here: ">
+    <button class = "next">Next</button>
+    <button class = "submit">Submit</button>
     </div>
     <script>
-        document.getElementById("subject").innerHTML("hello");
+       let subject = document.querySelector(".Subject");
+       let mark = document.querySelector(".marks");
+       let subjects = [];
+       let marks = [];
+       let sub = document.querySelector(".totalsub");
+       let next = document.querySelector(".next");
+       let submit = document.querySelector(".submit");
+        let i = 1;
+        let failsub = 0;
+        let totalmarks = 0;
+
+
+
+       next.addEventListener("click",()=>{
+        if(Number(sub.value)<=0){
+            alert("Enter your total subjects")
+        }
+        else{
+        totalsub = Number(sub.value);
+        subject.style.display = "block";
+        mark.style.display = "block";
+        if(i<=totalsub){
+       if (Number(mark.value)>0){
+        marks[i-1]=Number(mark.value);
+        subjects[i-1]=subject.value;
+        subject.value ="";
+       mark.value="";
+       i++;
+       }}
+        subject.focus();} 
+       })
+
+
+
+       submit.addEventListener("click",()=>{
+        if (marks.length < totalsub) {
+    alert("Please enter all subjects and marks");
+    return;
+}
+       marks.forEach((mark)=>{
+        if(mark<40){
+        failsub++;
+        }
+       })
+       if(failsub>0){
+        alert(`You failed in ${failsub} subject`)
+       }
+       else{
+         marks.forEach((mark)=>{
+            totalmarks += mark;
+        });
+        let totalmarksobtained = totalmarks;
+        alert("you scored " + totalmarksobtained);
+       }
+    i = 1;
+    subjects = [];
+    marks = [];
+    failsub = 0;
+    totalmarks = 0;
+    subject.style.display = "none";
+    mark.style.display = "none";
+    sub.value = "";
+    sub.focus();
+       })
     </script>
 </body>
 </html>
