@@ -72,7 +72,7 @@
        let sub = document.querySelector(".totalsub");
        let next = document.querySelector(".next");
        let submit = document.querySelector(".submit");
-        let i = 1;
+        let i = 0;
         let failsub = 0;
         let totalmarks = 0;
 
@@ -86,10 +86,10 @@
         totalsub = Number(sub.value);
         subject.style.display = "block";
         mark.style.display = "block";
-        if(i<=totalsub){
+        if(i<totalsub-1){
        if (Number(mark.value)>0){
-        marks[i-1]=Number(mark.value);
-        subjects[i-1]=subject.value;
+        marks[i]=Number(mark.value);
+        subjects[i]=subject.value;
         subject.value ="";
        mark.value="";
        i++;
@@ -100,7 +100,8 @@
 
 
        submit.addEventListener("click",()=>{
-        if (marks.length < totalsub) {
+        alert(marks.length);
+        if (marks.length < totalsub-1) {
     alert("Please enter all subjects and marks");
     return;
 }
@@ -119,7 +120,7 @@
         let totalmarksobtained = totalmarks;
         alert("you scored " + totalmarksobtained);
        }
-    i = 1;
+    i = 0;
     subjects = [];
     marks = [];
     failsub = 0;
