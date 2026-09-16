@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses Tracker</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: system-ui;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #E3FDFD;
+            color: #71C9CE;
+            display: flex;
+            justify-content: center;
+        }
+
+        .transactions {
+            margin-top: 50px;
+            min-height: 600px;
+            width: 600px;
+            border: 4px solid #CBF1F5;
+            border-radius: 25px;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 40px;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        input {
+            border-radius: 15px;
+            margin: 10px 0;
+            padding: 15px;
+            border: 2px solid #CBF1F5;
+            outline: none;
+        }
+
+        .income input {
+            width: 70%;
+        }
+
+        .expenses input {
+            width: 45%;
+        }
+
+        button {
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: 2px solid #CBF1F5;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #222;
+            color: #EECF6D;
+        }
+
+        .expenses {
+            margin-top: 30px;
+        }
+
+        .summary {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #CBF1F5;
+            border-radius: 15px;
+        }
+
+        .summary p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        #expenseList {
+            margin-top: 20px;
+        }
+
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #CBF1F5;
+            border-radius: 10px;
+        }
+
+        .delete {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="transactions">
+
+    <h1>Expenses Tracker</h1>
+
+
+    <div class="income">
+
+        <h2>Please enter your total Income:</h2>
+
+        <input
+            type="number"
+            id="incomeInput"
+            placeholder="Total Income Amount"
+        >
+
+        <button id="saveIncome">Save</button>
+
+    </div>
+
+
+    <div class="expenses">
+
+        <h2>Please enter the expenses here:</h2>
+
+        <input
+            type="text"
+            id="expenseName"
+            placeholder="Expense"
+        >
+
+        <input
+            type="number"
+            id="expenseAmount"
+            placeholder="Expense Amount"
+        >
+
+        <button id="submitExpense">Submit</button>
+
+    </div>
+
+
+    <div class="summary">
+        <p>Income: Rs. <span id="incomeDisplay">0</span></p>
+        <p>Total Expenses: Rs. <span id="totalDisplay">0</span></p>
+        <p>Remaining: Rs. <span id="remainingDisplay">0</span></p>
+    </div>
+
+
+    <!-- EXPENSE LIST -->
+    <div id="expenseList"></div>
+
+</div>
+
+
+<script>
+
+    // Store income
+    let income = 0;
+
+    // Array to store all expenses
+    let expenses = [];
+
+
+    // Get HTML elements
+    const incomeInput = document.getElementById("incomeInput");
+    const saveIncome = document.getElementById("saveIncome");
+
+    const expenseName = document.getElementById("expenseName");
+    const expenseAmount = document.getElementById("expenseAmount");
+    const submitExpense = document.getElementById("submitExpense");
+
+    const incomeDisplay = document.getElementById("incomeDisplay");
+    const totalDisplay = document.getElementById("totalDisplay");
+    const remainingDisplay = document.getElementById("remainingDisplay");
+
+    const expenseList = document.getElementById("expenseList");
+
+
+    // SAVE INCOME
+    saveIncome.addEventListener("click", function () {
+
+        income = Number(incomeInput.value);
+
+        incomeDisplay.textContent = income;
+
+        updateTotal();
+
+    });
+
+
+    // ADD EXPENSE
+    submitExpense.addEventListener("click", function () {
+
+        let name = expenseName.value;
+        let amount = Number(expenseAmount.value);
+
+
+        // Check if input is empty
+        if (name === "" || amount <= 0) {
+            alert("Please enter a valid expense.");
+            return;
+        }
+
+
+        // Create an object
+        let expense = {
+            name: name,
+            amount: amount
+        };
+
+
+        // Put object inside array
+        expenses.push(expense);
+
+
+        // Display expenses
+        displayExpenses();
+
+
+        // Update total
+        updateTotal();
+
+
+        // Clear inputs
+        expenseName.value = "";
+        expenseAmount.value = "";
+
+    });
+
+
+    // DISPLAY EXPENSES
+    function displayExpenses() {
+
+        // Clear previous list
+        expenseList.innerHTML = "";
+
+
+        expenses.forEach(function (expense, index) {
+
+            let div = document.createElement("div");
+
+            div.className = "expense-item";
+
+            div.innerHTML = `
+                <span>
+                    ${expense.name}: Rs. ${expense.amount}
+                </span>
+
+                <button class="delete" onclick="deleteExpense(${index})">
+                    Delete
+                </button>
+            `;
+
+
+            expenseList.appendChild(div);
+
+        });
+
+    }
+
+
+    // CALCULATE TOTAL
+    function updateTotal() {
+
+        let total = 0;
+
+
+        expenses.forEach(function (expense) {
+
+            total += expense.amount;
+
+        });
+
+
+        totalDisplay.textContent = total;
+
+
+        // Calculate remaining money
+        let remaining = income - total;
+
+        remainingDisplay.textContent = remaining;
+
+    }
+
+
+    // DELETE EXPENSE
+    function deleteExpense(index) {
+
+        expenses.splice(index, 1);
+
+        displayExpenses();
+
+        updateTotal();
+
+    }
+
+</script>
+
+</body>
+</html>
+
