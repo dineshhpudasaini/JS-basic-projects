@@ -170,7 +170,7 @@
 
             expenseName.value = "";
             expenseAmount.value = "";
-
+            expenseName.focus();
         });
 
         function displayExpenses(){
@@ -206,18 +206,13 @@
             updateTotal();
         }
         function resetall(){
-                    let expenses = [];
-                    let income = 0;
+                    income = 0;
                     incomeInput.value="";
                     incomeInput.focus();
+                    expenses.length = 0;
                     incomeDisplay.textContent = income;
-                    expenseName.value = "";
-                    expenseAmount.value = "";
-                    expenseList.innerHTML = "";
-                    displayExpenses();
-                    total = 0;
-                    deleteExpense();
                     updateTotal();
+                    displayExpenses();
         }
  const reset = document.querySelector(".reset");
 reset.addEventListener("click",()=>{
