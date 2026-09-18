@@ -23,14 +23,53 @@
             width:450px;
             border-radius:20px;
             background-color:#00c9a7;
+            display:flex;
+            justify-content:center;
+            align-items:center;
         } 
+        #heading{
+           padding-left:6px;
+           margin-left:10px;
+           font: size 50px;
+           background-color:#00c9a7;
+           color:white;
+        }
+        #Name{
+          font-size:30px;  
+          margin:20px;
+          padding:20px;
+          background-color:#00c9a7;
+          border-radius:30px;
+        }
+        .output{
+            background-color:#00c9a7;
+            background:#00c9a7;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            height:70px;
+            width:200px;
+            border:2px solid black;
+            margin-top:40px;
+            margin-left:100px;
+            border-radius:20px;
+        }
+        button{
+            border-radius:25px;
+            padding:12px;
+            margin-left:90px;
+            background-color:#00c9a7;
+        }
     </style>
 </head>
 <body>
     <div id = box>
-    <h1 id ="heading">Generate username: </h1>
+    <div><h1 id ="heading">Generate username: </h1>
     <input id = "Name" type = "text" placeholder = "Name Here">
+    <button id ="submit">Submit</button>
+    <button id = "clear">Clear</button>
     <div class="output"><span> UserName </span></div>
+    </div>
     </div>
 </body>
 </html>
