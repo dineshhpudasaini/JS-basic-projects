@@ -9,15 +9,15 @@
     <div class="time"> </div>
     <div class="temperature"> </div>
     <script>
-        let time = document.querySelector(".time")
-        let temperature = document.querySelector(".temperature")
-        temperature.innerHTML = "hi";
+        let time = document.querySelector(".time");
+        let temperature = document.querySelector(".temperature");
         let weather = fetch("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m");
         weather.then((value)=>{
             return value.json();
         }).then((value)=>{
             console.log(value);
-            temperature.innerHTML=value.time.temperature_2m;
+            time.innerHTML = value.hourly.time[0];
+            temperature.innerHTML=value.hourly.temperature_2m[0];
         })
     </script>
 </body>
