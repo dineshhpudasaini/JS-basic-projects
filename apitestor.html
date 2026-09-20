@@ -9,9 +9,16 @@
     <script>
         let response = fetch("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m");
         response.then((value)=>{
+            console.log(value.ok);
            return value.json();
         }).then((value)=>{
             console.log(value);
+            console.log(value.hourly.time[0]);
+            console.log(value.hourly.temperature_2m[0]);
+            for(let i = 0;i<=10;i++){
+            console.log(value.hourly.time[i]);
+            console.log(value.hourly.temperature_2m[i]);
+            }
         })
     </script>
 </body>
