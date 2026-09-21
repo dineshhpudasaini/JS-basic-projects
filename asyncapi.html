@@ -6,9 +6,11 @@
     <title>ASYNC API</title>
 </head>
 <body>
+    <h1></h1>
     <div class="time"></div>
     <div class="temperature"></div>
     <script>
+        let h = document.querySelector("h1");
         let temperature = document.querySelector(".temperature");
         let time = document.querySelector(".time");
 async function weather(){
@@ -22,7 +24,9 @@ async function weather(){
         alert("error");
     }
 }
+h.innerHTML = "Working on it";
 weather();
+
     </script>
 </body>
 </html>
